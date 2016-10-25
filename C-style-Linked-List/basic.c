@@ -49,7 +49,7 @@ void print (List *L) {
 int main () {
 	List *L = malloc (sizeof (List));
 	for (int i = 0; i < 4; ++i)
-		push_back (&L, i);
+		push_front (&L, i);
 	print (L);
 	return 0;
 }
