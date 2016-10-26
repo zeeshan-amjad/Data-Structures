@@ -8,7 +8,7 @@ typedef struct node {
 	struct node *next;
 } Node;
 
-typedef struct list {		//List definition contains head of the list
+typedef struct list {		//List definition has a pointer to the head of a list.
 	Node *head;
 } List;
 
@@ -27,7 +27,7 @@ void push_front (List **L, Type n) {
 
 void push_back (List **L, Type n) {
 	Node *newNode = makeNode (n), *temp = (*L)->head;
-	if (!temp) {		//Checking 'empty list' condition
+	if (!temp) {		//Checking 'empty list' condition.
 		(*L)->head = newNode;
 		return;
 	}
