@@ -36,6 +36,12 @@ void push_back (List **L, Type n) {
 	temp->next = newNode;
 }
 
+void push_after (Node *t, int n) {
+	Node *newNode = makeNode (n);
+	newNode->next = t->next;
+	t->next = newNode;
+}
+
 void print (List *L) {
 	Node *temp = malloc (sizeof (Node));
 	temp = L->head;
@@ -50,6 +56,10 @@ int main () {
 	List *L = malloc (sizeof (List));
 	for (int i = 0; i < 4; ++i)
 		push_front (&L, i);
+	Node *temp = L->head;
+	for (int i = 0; i < 3; ++i) 
+		temp = temp->next;
+	push_after (temp, 5);
 	print (L);
 	return 0;
 }
