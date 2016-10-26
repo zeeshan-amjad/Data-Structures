@@ -8,11 +8,7 @@ typedef struct node {
 	struct node *next;
 } Node;
 
-<<<<<<< HEAD
-typedef struct list {		//List definition contains head of the list.
-=======
 typedef struct list {		//List definition has a pointer to the head of a list.
->>>>>>> origin/master
 	Node *head;
 } List;
 
@@ -40,11 +36,7 @@ void push_back (List **L, Type n) {
 	temp->next = newNode;
 }
 
-<<<<<<< HEAD
-void push_after (Node *t, Type n) {	//t is a pointer to the target node after which insertion is to be made.		
-=======
 void push_after (Node *t, int n) {	//t is a pointer to the target node after which insertion is to be done.
->>>>>>> origin/master
 	Node *newNode = makeNode (n);
 	if (!t) {		//checking 'null target' condition.
 		t = newNode;
