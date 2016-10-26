@@ -36,7 +36,7 @@ void push_back (List **L, Type n) {
 	temp->next = newNode;
 }
 
-void push_after (Node *t, int n) {	//t is a pointer to the target node after which insertion is to be done.
+void push_after (Node *t, Type n) {	//t is a pointer to the target node after which insertion is to be done.
 	Node *newNode = makeNode (n);
 	if (!t) {		//checking 'null target' condition.
 		t = newNode;
@@ -44,6 +44,41 @@ void push_after (Node *t, int n) {	//t is a pointer to the target node after whi
 	}	
 	newNode->next = t->next;
 	t->next = newNode;
+}
+
+void delete (List **L, Type n) {	//deletes the first occurrence of the node having data n.
+	Node *temp = (*L)->head;
+	if (temp->data == n) {		//when the first node needs to be deleted.
+		(*L)->head = temp->next;
+		free (temp);
+		return;
+	}
+	while (temp->next && temp->next->data != n)	//iterating to the node before target node.
+		temp = temp->next;
+	if (!temp->next)		//when node not found.
+		return;
+	Node *f = temp->next;
+	temp->next = temp->next->next;
+	free (f);
+}
+
+void delete_pos (List **L, int n) {	//deletes the node at position n (zero - indexed).
+	Node *temp = (*L)->head;
+        if (!n) {          		//when the first node needs to be deleted.
+                (*L)->head = temp->next;
+                free (temp);
+                return;
+        }
+	int i = 1;
+	while (temp->next && i < n) {     //iterating to the node before target node.
+                temp = temp->next;
+		i++;
+	}
+	if (!temp->next)                //when node not found.
+                return;
+        Node *f = temp->next;
+        temp->next = temp->next->next;
+        free (f);
 }
 
 void print (List *L) {
@@ -64,6 +99,7 @@ int main () {
 	for (int i = 0; i < 3; ++i) 
 		temp = temp->next;
 	push_after (temp, 5);
+	delete_pos (&L, 7);
 	print (L);
 	return 0;
 }
