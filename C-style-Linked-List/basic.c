@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef int Type;
 
@@ -10,6 +11,7 @@ typedef struct node {
 
 typedef struct list {		//List definition has a pointer to the head of a list.
 	Node *head;
+	int size;
 } List;
 
 Node *makeNode (Type n) {
@@ -81,6 +83,60 @@ void delete_pos (List **L, int n) {	//deletes the node at position n (zero - ind
         free (f);
 }
 
+int size (List *L) {
+	int s = 0;
+	Node *temp = L->head;
+	while (temp) {
+		s++;
+		temp = temp->next;
+	}
+	return s;
+}
+
+bool search (List *L, Type n) {		//returns true if element is found.
+	Node *temp = L->head;
+	while (temp) {
+		if (temp->data == n)
+			return true;
+		temp = temp->next;
+	}
+	return false;
+}
+
+void swap (List **L, Type a, Type b) {		//swap two nodes by links.
+	if (a == b)			//when nodes are same.
+		return;
+	
+	Node *prevA = NULL, *curA = (*L)->head;
+	while (curA && curA->data != a) {		//setting first node.
+		prevA = curA;
+		curA = curA->next;
+	}
+
+	Node *prevB = NULL, *curB = (*L)->head;
+	while (curB && curB->data != b) {		//setting second node.
+		prevB = curB;
+		curB = curB->next;
+	}
+
+	if (!curA || !curB)		//when either node is not found.
+		return;
+
+	if (prevA)			
+		prevA->next = curB;
+	else				//when a node is the head node.
+		(*L)->head = curB;
+
+	if (prevB)
+		prevB->next = curA;
+	else
+		(*L)->head = curA;
+
+	Node *temp = curB->next;	
+	curB->next = curA->next;
+	curA->next = temp;
+}
+
 void print (List *L) {
 	Node *temp = malloc (sizeof (Node));
 	temp = L->head;
@@ -99,7 +155,8 @@ int main () {
 	for (int i = 0; i < 3; ++i) 
 		temp = temp->next;
 	push_after (temp, 5);
-	delete_pos (&L, 7);
+	print (L);
+	swap (&L, 3, 5);
 	print (L);
 	return 0;
 }
