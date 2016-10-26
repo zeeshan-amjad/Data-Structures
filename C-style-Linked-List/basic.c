@@ -36,7 +36,7 @@ void push_back (List **L, Type n) {
 	temp->next = newNode;
 }
 
-void push_after (Node *t, int n) {
+void push_after (Node *t, int n) {	//t is a pointer to the target node after which insertion is to be done.
 	Node *newNode = makeNode (n);
 	newNode->next = t->next;
 	t->next = newNode;
