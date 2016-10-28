@@ -7,7 +7,11 @@ Functions:
 * push_after - inserts an element after a pointed node. 
 * delete - deletes first occurrence of a node with given key. 
 * delete_pos - deletes nth node where n is zero indexed.  
-* swap - swaps two nodes by link.
+* swap - swaps two nodes by link.  
+* search - searches for an element.  
+* getMid - returns middle element of list.  
+* getNode - returns Nth node element of list.  
+* getNodeFromEnd - returns Nth node from the end.  
 * print - prints contents of the list.  
 
 Refer code for detailed description.

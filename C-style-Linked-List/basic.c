@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 
 typedef int Type;
 
@@ -137,6 +138,39 @@ void swap (List **L, Type a, Type b) {		//swap two nodes by links.
 	curA->next = temp;
 }
 
+Type getNode (List *L, int n) {		//1-indexed
+	if (n > size (L))
+		return INT_MIN;
+	Node *temp = L->head;
+	for (int i = 1; temp && i < n; ++i) 
+		temp = temp->next;
+	return temp->data;
+}
+
+Type getNodeFromEnd (List *L, int n) {	//1-indexed
+	Node *slow = L->head, *fast = L->head;
+	if (n > size (L))
+		return INT_MIN;
+	for (int i = 1; i <= n; ++i)
+		fast = fast->next;
+	while (fast) {
+		fast = fast->next;
+		slow = slow->next;
+	}
+	return slow->data;
+}
+
+Type getMid (List *L) {
+	if (!L->head)
+		return INT_MIN;
+	Node *slow = L->head, *fast = L->head;
+	while (fast && fast->next) {
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+	return slow->data;
+}
+
 void print (List *L) {
 	Node *temp = malloc (sizeof (Node));
 	temp = L->head;
@@ -149,7 +183,7 @@ void print (List *L) {
 
 int main () {
 	List *L = malloc (sizeof (List));
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 5; ++i)
 		push_front (&L, i);
 	Node *temp = L->head;
 	for (int i = 0; i < 3; ++i) 
@@ -158,5 +192,6 @@ int main () {
 	print (L);
 	swap (&L, 3, 5);
 	print (L);
+	printf ("%d\n", getNode (L, 1));
 	return 0;
 }
